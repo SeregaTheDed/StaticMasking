@@ -11,13 +11,24 @@ namespace StaticMaskingLibrary.MaskingClasses
 {
     public class MaskingOptions
     {
-        public string ServerInstance { get; }
-        public string DatabaseName { get; }
-        public Dictionary<string, Table> Tables { get; set; } = new Dictionary<string, Table>();
-        public MaskingOptions(string serverInstance = "localhost", string databaseName = "exampleDB")
+        public Dictionary<string, MaskingTableModel> Tables { get; set; }
+        public Database Database { get; }
+
+        public MaskingOptions(Database database)
         {
-            ServerInstance = serverInstance;
-            DatabaseName = databaseName;
+            Database = database;
+            InitTables();
+        }
+
+        private void InitTables()
+        {
+            Tables = new Dictionary<string, MaskingTableModel>();
+            foreach (Table table in this.Database.Tables)
+            {
+                if (table.IsSystemObject)
+                    continue;
+                Tables[table.Name] = new MaskingTableModel(table);
+            }
         }
         
         

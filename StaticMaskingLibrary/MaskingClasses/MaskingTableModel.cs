@@ -1,18 +1,17 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
     public class MaskingTableModel
     {
-        public Dictionary<string, MaskingColumnModel> Tables { get; private set; } 
+        public Dictionary<string, MaskingColumnModel> Columns { get; private set; } 
         public MaskingTableModel(Table table)
         {
-            Tables = new Dictionary<string, MaskingColumnModel>();
+            Columns = new Dictionary<string, MaskingColumnModel>();
+            foreach (Column column in table.Columns)
+            {
+                Columns[column.Name] = new MaskingColumnModel(column);
+            }
         }
     }
 }

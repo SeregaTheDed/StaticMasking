@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticMaskingLibrary", "StaticMaskingLibrary\StaticMaskingLibrary.csproj", "{E54F9B7F-0F65-4DA6-B390-E0B5B6A3A314}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleScriptMaskingExample", "SimpleScriptMaskingExample\SimpleScriptMaskingExample.csproj", "{97A280CF-B1D2-4801-B83A-E5675886888F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E54F9B7F-0F65-4DA6-B390-E0B5B6A3A314}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E54F9B7F-0F65-4DA6-B390-E0B5B6A3A314}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E54F9B7F-0F65-4DA6-B390-E0B5B6A3A314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A280CF-B1D2-4801-B83A-E5675886888F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A280CF-B1D2-4801-B83A-E5675886888F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A280CF-B1D2-4801-B83A-E5675886888F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A280CF-B1D2-4801-B83A-E5675886888F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

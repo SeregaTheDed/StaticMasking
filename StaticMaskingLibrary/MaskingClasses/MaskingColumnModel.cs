@@ -9,11 +9,18 @@ namespace StaticMaskingLibrary.MaskingClasses
 {
     public class MaskingColumnModel
     {
-        public ColumnType columnType { get; private set; }
+        public ColumnType ColumnType { get; private set; }
+
+
 
         public MaskingColumnModel(Column column)
         {
-            
+            if (column.Identity)
+                this.ColumnType = ColumnType.Identity;
+            else if (column.Computed)
+                this.ColumnType = ColumnType.Computed;
+            else
+                this.ColumnType = ColumnType.Default;
         }
     }
 }
