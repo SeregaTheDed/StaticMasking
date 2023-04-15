@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
-    public enum ColumnType
+    public enum ColumnTypes
     {
         Default,
         Computed,

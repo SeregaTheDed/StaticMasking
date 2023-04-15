@@ -1,30 +1,38 @@
 ﻿using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.Wmi;
+using StaticMaskingLibrary.Utilities;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
     public class StaticMasker
     {
         public MaskingOptions MaskingOptions { get; private set; }
-        public string ServerInstance { get; }
-        public string DatabaseName { get; }
-        public StaticMasker(string serverInstance = "localhost", string databaseName = "exampleMaskingDB")
+        internal Server Server { get; }
+        internal Database SelectedDatabase { get; }
+        ServerConnection ServerConnection { get; }
+        public StaticMasker(string serverInstance, string databaseName)
         {
-            ServerInstance = serverInstance;
-            DatabaseName = databaseName;
-            InitMaskingOptions();
+            ServerConnection = new ServerConnection(serverInstance);
+            Server = new Server(ServerConnection);
+            SelectedDatabase = Server.Databases[databaseName];
+            if (SelectedDatabase == null)
+                throw new ArgumentException($"Database \"{databaseName}\" not exists!");
+            MaskingOptions = new MaskingOptions(SelectedDatabase);
         }
-        private void InitMaskingOptions()
+        ~StaticMasker()
         {
-            ServerConnection conn = new ServerConnection(ServerInstance);
-            Server srv = new Server(conn);
-            Database database = srv.Databases[DatabaseName];
-            if (database == null)
-                throw new ArgumentException($"Database \"{DatabaseName}\" not exists!");
-            MaskingOptions = new MaskingOptions(database);
+            ServerConnection.Disconnect();
         }
-        public string GetScript()
+        public void MaskDatabase(string newDatabaseName)
+        {
+            if (Server.Databases.Contains(newDatabaseName))
+                throw new ArgumentException($"Database \"{newDatabaseName}\" already exists!");
+
+            DatabaseCopier databaseCopier = new DatabaseCopier(Server, SelectedDatabase);
+            databaseCopier.Copy(newDatabaseName);
+        }
+        public string MaskDatabaseAndGetScript()
         {
             throw new NotImplementedException();
         }

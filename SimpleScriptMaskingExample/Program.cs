@@ -2,6 +2,7 @@
 using Microsoft.SqlServer.Management.Smo;
 using StaticMaskingLibrary.MaskingClasses;
 using System.Collections.Specialized;
+using System.Reflection;
 
 namespace SimpleScriptMaskingExample
 {
@@ -13,8 +14,7 @@ namespace SimpleScriptMaskingExample
         }
         private static void PrintTablesAndColumns()
         {
-            StaticMasker masker = new StaticMasker();
-
+            StaticMasker masker = new StaticMasker("localhost", "exampleMaskingDB");
             foreach (var table in masker.MaskingOptions.Tables)
             {
                 Console.WriteLine(table.Key);
@@ -23,30 +23,19 @@ namespace SimpleScriptMaskingExample
                     Console.WriteLine("\t" + column.Key + " - " + column.Value.ColumnType);
                 }
             }
-        }
-        void test()
-        {
-            // Создаем новый объект ServerConnection
-            ServerConnection conn = new ServerConnection("localhost");
-
-            // Создаем новый объект Server
-            Server srv = new Server(conn);
-
-            // Устанавливаем свойства базы данных
-            Database db = new Database(srv, "TestDB");
-            if (srv.Databases.Contains("TestDB") == false)
+            try
             {
-                db.Create();
+                masker.MaskDatabase("exampleMaskingDB_COPY");
             }
-
-            // Получаем коллекцию скриптов для создания базы данных
-            StringCollection script = db.Script();
-
-            // Выводим скрипт на экран
-            foreach (string line in script)
+            catch (Exception e)
             {
-                Console.WriteLine(line);
+                Console.WriteLine("--------------");
+                Console.WriteLine(e.Message);
             }
+            
         }
+
+        // Получаем коллекцию скриптов для создания базы данных
+        // StringCollection script = db.Script();
     }
 }
