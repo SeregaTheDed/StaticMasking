@@ -10,7 +10,7 @@ namespace StaticMaskingLibrary.MaskingClasses
         public MaskingOptions MaskingOptions { get; private set; }
         internal Server Server { get; }
         internal Database SelectedDatabase { get; }
-        ServerConnection ServerConnection { get; }
+        private ServerConnection ServerConnection { get; }
         public StaticMasker(string serverInstance, string databaseName)
         {
             ServerConnection = new ServerConnection(serverInstance);

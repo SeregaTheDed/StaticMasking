@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms
 {
-    internal interface IMaskAlgorithm
+    public interface IMaskAlgorithm
     {
-        //internal Dictionary<string, object>
+        public string GetMaskedValue(string value);
     }
 }

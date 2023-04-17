@@ -14,6 +14,11 @@ namespace StaticMaskingLibrary.MaskingClasses
             {
                 Columns[column.Name] = new MaskingColumnModel(column);
             }
+            foreach (ForeignKey foreignKey in table.ForeignKeys)
+            {
+                var columnName = foreignKey.Columns[0].ToString().Trim(new char[] {'[', ']'});
+                Columns[columnName].ForeignKey = foreignKey;
+            }
         }
     }
 }

@@ -15,12 +15,14 @@ namespace SimpleScriptMaskingExample
         private static void PrintTablesAndColumns()
         {
             StaticMasker masker = new StaticMasker("localhost", "exampleMaskingDB");
+
             foreach (var table in masker.MaskingOptions.Tables)
             {
+
                 Console.WriteLine(table.Key);
                 foreach (var column in table.Value.Columns)
                 {
-                    Console.WriteLine("\t" + column.Key + " - " + column.Value.ColumnType);
+                    Console.WriteLine($"\t{column.Key} - {column.Value.ColumnType} - {column.Value.ForeignKey}");
                 }
             }
             try
