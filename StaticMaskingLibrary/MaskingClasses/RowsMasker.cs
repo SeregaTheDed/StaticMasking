@@ -18,6 +18,10 @@ namespace StaticMaskingLibrary.MaskingClasses
         
         internal void Mask(MaskingColumnModel columnModel)
         {
+            if (columnModel.ColumnType != ColumnTypes.Default)
+                throw new ArgumentException($"Колонку {columnModel.ColumnReference.Name} не является изменяемой пользователем колонкой!");
+            if (columnModel.ForeignKey != null)
+                throw new ArgumentException($"Для изменения колонки {columnModel.ColumnReference.Name} с внешним ключом {columnModel.ForeignKey.Name} нужно изменять ссылочную колонку!");
             var column = columnModel.ColumnReference;
         }
         private void MaskColumnWithForeightKey(Column column)

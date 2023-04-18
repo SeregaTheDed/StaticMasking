@@ -19,5 +19,15 @@ namespace StaticMaskingLibrary.utils
                 array[k] = temp;
             }
         }
+        public static string GetRandomString(this Random rng)
+        {
+            int stringLenght = 8;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < stringLenght; i++)
+            {
+                sb.Append((char)rng.Next('a', 'z'+1));
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -9,32 +9,49 @@ namespace StaticMaskingLibrary.MaskingClasses
     {
         public MaskingOptions MaskingOptions { get; private set; }
         internal Server Server { get; }
-        internal Database SelectedDatabase { get; }
+        internal Database SelectedDatabase { get; private set; }
         private ServerConnection ServerConnection { get; }
-        public StaticMasker(string serverInstance, string databaseName)
+        
+        private ForeignKeyUpdater keyUpdater;
+        public StaticMasker(string serverInstance, string databaseName, string newDatabaseName)
         {
             ServerConnection = new ServerConnection(serverInstance);
             Server = new Server(ServerConnection);
             SelectedDatabase = Server.Databases[databaseName];
             if (SelectedDatabase == null)
                 throw new ArgumentException($"Database \"{databaseName}\" not exists!");
-            MaskingOptions = new MaskingOptions(SelectedDatabase);
+            InitNewDatabase(newDatabaseName);
         }
+
         ~StaticMasker()
         {
-            ServerConnection.Disconnect();
+            if (ServerConnection != null)
+                ServerConnection.Disconnect();
         }
-        public void MaskDatabase(string newDatabaseName)
+        private void InitNewDatabase(string newDatabaseName)
         {
             if (Server.Databases.Contains(newDatabaseName))
                 throw new ArgumentException($"Database \"{newDatabaseName}\" already exists!");
-
             DatabaseCopier databaseCopier = new DatabaseCopier(Server, SelectedDatabase);
             databaseCopier.Copy(newDatabaseName);
+            SelectedDatabase = Server.Databases[newDatabaseName];
+            MaskingOptions = new MaskingOptions(SelectedDatabase);
+            keyUpdater = new ForeignKeyUpdater(MaskingOptions);
+
         }
-        public string MaskDatabaseAndGetScript()
+        
+        public void MaskDatabase()
         {
-            throw new NotImplementedException();
+            keyUpdater.ChangeForeignKeyActions();
+
+
+
+
+
+
+
+
+            keyUpdater.ResetForeignKeyActions();
         }
     }
 }

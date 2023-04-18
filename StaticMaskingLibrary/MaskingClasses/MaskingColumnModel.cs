@@ -13,7 +13,7 @@ namespace StaticMaskingLibrary.MaskingClasses
         public ForeignKey ForeignKey { get; set; }
         public ColumnTypes ColumnType { get; private set; }
         public Column ColumnReference { get; private set; }
-        public MaskingColumnModel(Column column)
+        internal MaskingColumnModel(Column column)
         {
             ColumnReference = column;
             if (column.Identity)

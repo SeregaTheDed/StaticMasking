@@ -34,6 +34,13 @@ namespace StaticMaskingLibrary.Utilities
             xfr.DestinationServer = Server.Name;
             xfr.DestinationLoginSecure = true;
             xfr.CopySchema = true;
+            xfr.Options.SchemaQualifyForeignKeysReferences = true;//?
+            xfr.CopyAllColumnEncryptionKey = true;
+
+            xfr.CopyAllObjects = true;//?
+            //xfr.Options.DriForeignKeys = true;
+            xfr.Options.DriAllKeys = true;
+
             //Script the transfer. Alternatively perform immediate data transfer   
             // with TransferData method.   
             xfr.ScriptTransfer();

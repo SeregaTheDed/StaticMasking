@@ -14,8 +14,7 @@ namespace SimpleScriptMaskingExample
         }
         private static void PrintTablesAndColumns()
         {
-            StaticMasker masker = new StaticMasker("localhost", "exampleMaskingDB");
-
+            StaticMasker masker = new StaticMasker("localhost", "exampleMaskingDB", "exampleMaskingDB_COPY");
             foreach (var table in masker.MaskingOptions.Tables)
             {
 
@@ -27,10 +26,12 @@ namespace SimpleScriptMaskingExample
             }
             try
             {
-                masker.MaskDatabase("exampleMaskingDB_COPY");
+                masker.MaskDatabase();
+                masker.MaskingOptions.Database.Drop();
             }
             catch (Exception e)
             {
+                masker.MaskingOptions.Database.Drop();
                 Console.WriteLine("--------------");
                 Console.WriteLine(e.Message);
             }
