@@ -28,6 +28,7 @@ namespace StaticMaskingLibrary.MaskingClasses
             if (ServerConnection != null)
                 ServerConnection.Disconnect();
         }
+
         private void InitNewDatabase(string newDatabaseName)
         {
             if (Server.Databases.Contains(newDatabaseName))
@@ -44,12 +45,8 @@ namespace StaticMaskingLibrary.MaskingClasses
         {
             keyUpdater.ChangeForeignKeyActions();
 
-
-
-
-
-
-
+            MaskingAlgorithmsExecuter maskingAlgorithmsExecuter = new MaskingAlgorithmsExecuter(MaskingOptions);
+            maskingAlgorithmsExecuter.Execute();
 
             keyUpdater.ResetForeignKeyActions();
         }
