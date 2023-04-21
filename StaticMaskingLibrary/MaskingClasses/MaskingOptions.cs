@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using StaticMaskingLibrary.MaskingClasses.Models;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {

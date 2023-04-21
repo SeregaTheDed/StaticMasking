@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaticMaskingLibrary.MaskingClasses
+namespace StaticMaskingLibrary.MaskingClasses.Enums
 {
     public enum ColumnTypes
     {

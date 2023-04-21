@@ -1,4 +1,5 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
+using StaticMaskingLibrary.MaskingClasses.Enums;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StaticMaskingLibrary.MaskingClasses
+namespace StaticMaskingLibrary.MaskingClasses.Models
 {
     public class MaskingColumnModel
     {
@@ -19,11 +20,11 @@ namespace StaticMaskingLibrary.MaskingClasses
         {
             ColumnReference = column;
             if (column.Identity)
-                this.ColumnType = ColumnTypes.Identity;
+                ColumnType = ColumnTypes.Identity;
             else if (column.Computed)
-                this.ColumnType = ColumnTypes.Computed;
+                ColumnType = ColumnTypes.Computed;
             else
-                this.ColumnType = ColumnTypes.Default;
+                ColumnType = ColumnTypes.Default;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StaticMaskingLibrary.MaskingClasses.Enums;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
@@ -28,13 +29,17 @@ namespace StaticMaskingLibrary.MaskingClasses
                         throw new InvalidOperationException($"Колонку {columnModel.ColumnReference.Name} не является изменяемой пользователем колонкой!");
                     if (columnModel.ForeignKey != null)
                         throw new InvalidOperationException($"Для изменения колонки {columnModel.ColumnReference.Name} с внешним ключом {columnModel.ForeignKey.Name} нужно изменять ссылочную колонку!");
-                    foreach (var maskedColumnValue in columnModel.MaskAlgorithm.GetMaskedValue())
+                    foreach (var maskedColumnValue in columnModel.MaskAlgorithm.GetMaskedValues())
                     {
-                        string query = 
+                        string query =
                         $"use [{MaskingOptions.Database.Name}]\n" +
                         $"go\n" +
                         $"update {currentTable.ToString()}\n" +
-                        $"set {currentColumn.Name} = {maskedColumnValue}";
+                        $"set {currentColumn.Name} = {maskedColumnValue.MaskedColumn}\n";
+                        if (maskedColumnValue.Where != null)
+                        {
+                            query += $"where {currentColumn.Name}={maskedColumnValue.Where}";
+                        }
                         MaskingOptions.Database.ExecuteNonQuery(query);
                     }
                     

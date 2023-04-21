@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using Newtonsoft.Json.Linq;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
+using StaticMaskingLibrary.MaskingClasses.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -13,12 +14,18 @@ namespace StaticMaskingLibrary.MaskingClasses.MaskingAlgorithms
 {
     public class LastFourCardNumberMA : MaskAlgorithm
     {
-
-        public LastFourCardNumberMA(Column column) : base(column) { }
-
-        public override IEnumerable<string> GetMaskedValue()
+        internal LastFourCardNumberMA() : base(null)
         {
-            yield return $"\'************\' + right({this.Column.Name}, 4)";
+            this.maskAlgorithmDefinition = new MaskAlgorithmDefinition
+                (
+                    "Маскирует номер карты, оставляя последние 4 цифры, а остальные заменяет на символ \"*\""
+                );
+        }
+        public LastFourCardNumberMA(Column column) : base(column)  {  }
+
+        internal override IEnumerable<MaskedValueModel> GetMaskedValues()
+        {
+            yield return new MaskedValueModel { MaskedColumn = $"\'************\' + right({this.Column.Name}, 4)" };
         }
     }
 }
