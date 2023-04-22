@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StaticMaskingLibrary.MaskingClasses.Enums;
+using StaticMaskingLibrary.MaskingClasses.MaskingResults;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
@@ -40,7 +41,16 @@ namespace StaticMaskingLibrary.MaskingClasses
                         {
                             query += $"where {currentColumn.Name}={maskedColumnValue.Where}";
                         }
-                        MaskingOptions.Database.ExecuteNonQuery(query);
+                        try
+                        {
+                            MaskingOptions.Database.ExecuteNonQuery(query);
+                            columnModel.MaskingResult = new SuccessfulMaskingResult();
+                        }
+                        catch (Exception e)
+                        {
+                            columnModel.MaskingResult = new FailedMaskingResultWithException(e);
+                        }
+                        
                     }
                     
                 }

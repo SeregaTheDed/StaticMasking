@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
 using StaticMaskingLibrary.MaskingClasses.Enums;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
+using StaticMaskingLibrary.MaskingClasses.MaskingResults;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,7 @@ namespace StaticMaskingLibrary.MaskingClasses.Models
         public ColumnTypes ColumnType { get; private set; }
         public Column ColumnReference { get; private set; }
         public MaskAlgorithm MaskAlgorithm { get; set; }
+        public MaskingResult MaskingResult { get; internal set; } = new MaskingResultNotMasked();
         internal MaskingColumnModel(Column column)
         {
             ColumnReference = column;

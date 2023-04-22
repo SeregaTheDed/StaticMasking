@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Management.Smo;
 using StaticMaskingLibrary.MaskingClasses;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgorithms;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
+using StaticMaskingLibrary.MaskingClasses.MaskingResults;
 using StaticMaskingLibrary.MaskingClasses.Models;
 using System.Collections.Specialized;
 using System.Reflection;
@@ -30,18 +31,20 @@ exampleMaskingDB_COPY
             string serverName = Console.ReadLine();//exampleMaskingDB
             Console.Write("Input DB's copy name:");
             string serverNameCopy = Console.ReadLine();//exampleMaskingDB_COPY
+            Console.WriteLine("Find metadata...");
             try
             {
                 masker = new StaticMasker(serverInstance, serverName, serverNameCopy);
                 PrintSelectTables();
                 masker.MaskDatabase();
+                PrintMaskingResults(masker.MaskingOptions);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return;
             }
-            
+            Console.ReadLine();
         }
         private void PrintSelectTables()
         {
@@ -142,6 +145,34 @@ exampleMaskingDB_COPY
         {
             var maskingAlgorithmInstanse = MaskingAlgorithmsFactory.GetInstanse(maskAlgorithmDefinition, maskingColumnModel.ColumnReference);
             maskingColumnModel.MaskAlgorithm = maskingAlgorithmInstanse;
+        }
+        private void PrintMaskingResults(MaskingOptions maskingOptions)
+        {
+            foreach (var table in maskingOptions.Tables)
+            {
+                Console.WriteLine(table.Key);
+                foreach (var column in table.Value.Columns)
+                {
+                    string maskingResult;
+                    if (column.Value.MaskingResult is MaskingResultNotMasked)
+                    {
+                        maskingResult = "Not masked";
+                    }
+                    else if (column.Value.MaskingResult is SuccessfulMaskingResult)
+                    {
+                        maskingResult = "Successful masked";
+                    }
+                    else if (column.Value.MaskingResult is FailedMaskingResultWithException failed)
+                    {
+                        maskingResult = "Masked with exception: " + failed.ResultException.Message;
+                    }
+                    else
+                    {
+                        throw new NotImplementedException();
+                    }
+                    Console.WriteLine($"\t{column.Key} - {maskingResult}");
+                }
+            }
         }
     }
     internal class Program
