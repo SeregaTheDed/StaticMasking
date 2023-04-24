@@ -7,6 +7,8 @@ using StaticMaskingLibrary.MaskingClasses.MaskingResults;
 using StaticMaskingLibrary.MaskingClasses.Models;
 using System.Collections.Specialized;
 using System.Reflection;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace SimpleScriptMaskingExample
 {
@@ -31,7 +33,7 @@ exampleMaskingDB_COPY
             string serverName = Console.ReadLine();//exampleMaskingDB
             Console.Write("Input DB's copy name:");
             string serverNameCopy = Console.ReadLine();//exampleMaskingDB_COPY
-            Console.WriteLine("Find metadata...");
+            Console.WriteLine("Finding metadata...");
             try
             {
                 masker = new StaticMasker(serverInstance, serverName, serverNameCopy);

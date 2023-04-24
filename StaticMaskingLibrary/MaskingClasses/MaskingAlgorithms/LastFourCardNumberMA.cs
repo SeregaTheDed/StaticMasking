@@ -29,18 +29,3 @@ namespace StaticMaskingLibrary.MaskingClasses.MaskingAlgorithms
         }
     }
 }
-/*
-update dbo.users
-set FIO = replace(FIO, N'ч', N'чч')
-
-update users
-set FIO = replace(FIO, N'чч', N'ч')
-
-select*
-from users
-
-select replace(replace(FIO, N'ч', N'чч'), N'чч', N'ч')
-from users
-
-select '************' + right('1234567812345678', 4)
-*/
