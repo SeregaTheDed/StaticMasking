@@ -2,12 +2,6 @@
 using StaticMaskingLibrary.MaskingClasses.Enums;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
 using StaticMaskingLibrary.MaskingClasses.MaskingResults;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses.Models
 {

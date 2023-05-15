@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StaticMaskingLibrary.MaskingClasses.Enums;
+﻿using StaticMaskingLibrary.MaskingClasses.Enums;
 using StaticMaskingLibrary.MaskingClasses.MaskingResults;
 
 namespace StaticMaskingLibrary.MaskingClasses
@@ -16,7 +11,7 @@ namespace StaticMaskingLibrary.MaskingClasses
             MaskingOptions = maskingOptions;
         }
 
-        public void Execute() 
+        public void Execute()
         {
             foreach (var tableModel in MaskingOptions.Tables.Values)
             {
@@ -50,12 +45,12 @@ namespace StaticMaskingLibrary.MaskingClasses
                         {
                             columnModel.MaskingResult = new FailedMaskingResultWithException(e);
                         }
-                        
+
                     }
-                    
+
                 }
             }
         }
-        
+
     }
 }

@@ -1,13 +1,7 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
 using StaticMaskingLibrary.MaskingClasses.Models;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
@@ -34,7 +28,7 @@ namespace StaticMaskingLibrary.MaskingClasses
         }
         public static MaskAlgorithm GetInstanse(MaskAlgorithmDefinition maskAlgorithmDefinition, Column column)
         {
-            Type algorithmType = 
+            Type algorithmType =
                 MaskingAlgorithmDefinitions
                 .First(x => x.MaskAlgorithmDefinition.CompareTo(maskAlgorithmDefinition) == 0)
                 .GetType();

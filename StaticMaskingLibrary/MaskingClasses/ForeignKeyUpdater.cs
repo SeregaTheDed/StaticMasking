@@ -1,10 +1,4 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
-using StaticMaskingLibrary.utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses
 {
@@ -14,7 +8,7 @@ namespace StaticMaskingLibrary.MaskingClasses
         private ForeignKeyAction[] lastForeignKeyActions;
         private IEnumerable<ForeignKey> ForeignKeysActionsForChangeUpdateCascade;
         private Random rnd = new Random();
-        internal ForeignKeyUpdater(MaskingOptions maskingOptions) 
+        internal ForeignKeyUpdater(MaskingOptions maskingOptions)
         {
             MaskingOptions = maskingOptions;
         }

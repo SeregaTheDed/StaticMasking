@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StaticMaskingLibrary.MaskingClasses.MaskingResults
+﻿namespace StaticMaskingLibrary.MaskingClasses.MaskingResults
 {
     public abstract class MaskingResult
     {

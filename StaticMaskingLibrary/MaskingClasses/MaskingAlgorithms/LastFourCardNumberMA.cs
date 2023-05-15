@@ -1,14 +1,6 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json.Linq;
 using StaticMaskingLibrary.MaskingClasses.MaskingAlgoritms;
 using StaticMaskingLibrary.MaskingClasses.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.MaskingClasses.MaskingAlgorithms
 {
@@ -21,7 +13,7 @@ namespace StaticMaskingLibrary.MaskingClasses.MaskingAlgorithms
                     "Маскирует номер карты, оставляя последние 4 цифры, а остальные заменяет на символ \"*\""
                 );
         }
-        public LastFourCardNumberMA(Column column) : base(column)  {  }
+        public LastFourCardNumberMA(Column column) : base(column) { }
 
         internal override IEnumerable<MaskedValueModel> GetMaskedValues()
         {

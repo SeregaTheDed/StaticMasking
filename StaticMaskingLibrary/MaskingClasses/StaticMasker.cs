@@ -1,6 +1,5 @@
 ﻿using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
-using Microsoft.SqlServer.Management.Smo.Wmi;
 using StaticMaskingLibrary.Utilities;
 
 namespace StaticMaskingLibrary.MaskingClasses
@@ -11,7 +10,7 @@ namespace StaticMaskingLibrary.MaskingClasses
         internal Server Server { get; }
         internal Database SelectedDatabase { get; private set; }
         private ServerConnection ServerConnection { get; }
-        
+
         private ForeignKeyUpdater keyUpdater;
         public StaticMasker(string serverInstance, string databaseName, string newDatabaseName)
         {
@@ -21,12 +20,6 @@ namespace StaticMaskingLibrary.MaskingClasses
             if (SelectedDatabase == null)
                 throw new ArgumentException($"Database \"{databaseName}\" not exists!");
             InitNewDatabase(newDatabaseName);
-        }
-
-        ~StaticMasker()
-        {
-            if (ServerConnection != null)
-                ServerConnection.Disconnect();
         }
 
         private void InitNewDatabase(string newDatabaseName)
@@ -40,7 +33,7 @@ namespace StaticMaskingLibrary.MaskingClasses
             keyUpdater = new ForeignKeyUpdater(MaskingOptions);
 
         }
-        
+
         public void MaskDatabase()
         {
             keyUpdater.ChangeForeignKeyActions();
@@ -49,6 +42,8 @@ namespace StaticMaskingLibrary.MaskingClasses
             maskingAlgorithmsExecuter.Execute();
 
             keyUpdater.ResetForeignKeyActions();
+
+            ServerConnection.Disconnect();
         }
     }
 }

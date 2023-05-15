@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace StaticMaskingLibrary.utils
 {
@@ -25,7 +21,7 @@ namespace StaticMaskingLibrary.utils
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < stringLenght; i++)
             {
-                sb.Append((char)rng.Next('a', 'z'+1));
+                sb.Append((char)rng.Next('a', 'z' + 1));
             }
             return sb.ToString();
         }

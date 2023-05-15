@@ -1,10 +1,4 @@
 ﻿using Microsoft.SqlServer.Management.Smo;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StaticMaskingLibrary.Utilities
 {
@@ -12,7 +6,7 @@ namespace StaticMaskingLibrary.Utilities
     {
         public Server Server { get; }
         public Database DatabaseToCopy { get; }
-        public DatabaseCopier(Server server, Database databaseToCopy) 
+        public DatabaseCopier(Server server, Database databaseToCopy)
         {
             Server = server;
             DatabaseToCopy = databaseToCopy;
@@ -47,6 +41,6 @@ namespace StaticMaskingLibrary.Utilities
             xfr.TransferData();
         }
 
-        
+
     }
 }
